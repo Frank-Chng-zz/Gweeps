@@ -22,7 +22,7 @@ public class PlatformerCharacter2D : MonoBehaviour
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
 
-
+	public AudioSource jumpSound;
 	private PlayerController playerController; 
 	private string currentGweep;
 	public Image GweepImage;
@@ -237,6 +237,9 @@ public class PlatformerCharacter2D : MonoBehaviour
             m_Grounded = false;
             m_Anim.SetBool("Ground", false);
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+
+			//Play jumping sound
+			jumpSound.Play();
         }
     }
 
