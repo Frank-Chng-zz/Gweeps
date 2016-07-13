@@ -12,7 +12,7 @@ public class ChangeTextLevel03 : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if(other.gameObject.CompareTag("Player") && count == 0){
-			text.text = "This is Carl the Constant Gweep.";
+			text.text = "This is <insert name here> the Constant Gweep.";
 			count = count + 1;
 		}
 

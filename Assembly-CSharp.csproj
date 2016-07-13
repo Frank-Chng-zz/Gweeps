@@ -56,6 +56,9 @@
      <Compile Include="Assets\Scripts\ChangeText_2_Level03.cs" />
      <Compile Include="Assets\Scripts\ConstantGweepCollision.cs" />
      <Compile Include="Assets\Scripts\DisplayEquation.cs" />
+     <Compile Include="Assets\Scripts\DragButtonLGSlider.cs" />
+     <Compile Include="Assets\Scripts\DragButtonPGLinearSlider.cs" />
+     <Compile Include="Assets\Scripts\DragButtonPGQuadraticSlider.cs" />
      <Compile Include="Assets\Scripts\GweepRespawn.cs" />
      <Compile Include="Assets\Scripts\Level05Button.cs" />
      <Compile Include="Assets\Scripts\LinearEquationInteractable.cs" />
@@ -63,9 +66,9 @@
      <Compile Include="Assets\Scripts\Player2DMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\ProjectilePreview.cs" />
+     <Compile Include="Assets\Scripts\QuadraticEquationInteractable.cs" />
      <Compile Include="Assets\Scripts\linearGweepActivity.cs" />
      <Compile Include="Assets\Scripts\parabolaGweepActivity.cs" />
-     <Compile Include="Assets\Sprites\QuadraticEquationInteractable.cs" />
      <Compile Include="Assets\sumMusic\Scripts\SumMusic.cs" />
      <None Include="Assets\sumMusic\README.md.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />

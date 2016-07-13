@@ -10,29 +10,36 @@ public class ProjectilePreview : MonoBehaviour {
 	private PlatformerCharacter2D PC2D;
 	private string currentGweep; 
 	private bool facingRight;
+
 	private Transform leftShot;
 	private Transform rightShot;
 	private Vector3 position;
 	private Vector3 velocity;
-	public GameObject projectileDot;
-	private Rigidbody2D rb;
-	public LinearEquationInteractable LEI;
-	public int numLineDots;
 
-	public Slider slider;
+	public GameObject projectileDot;
+
+	//private Rigidbody2D rb;
+	public LinearEquationInteractable LEI;
+	public QuadraticEquationInteractable QEI;
+	private CalculateParabola CP;
+
+	public int numLineDots;
+	private float delayTime;
 	private bool ShowingLine;
 
-	private float delayTime;
+	//public LineRenderer lineRenderer;
 
 	void Start () {
 		playerController = GetComponent<PlayerController>();
 		PC2D = GetComponent<PlatformerCharacter2D> ();
 		leftShot = PC2D.leftShot;
 		rightShot = PC2D.rightShot;
-		rb = GetComponent<Rigidbody2D> ();
-		delayTime = 1f;
+		//rb = GetComponent<Rigidbody2D> ();
+		delayTime = 0.25f;
 		ShowingLine = false;
 		numLineDots = 25;
+		CP = GetComponent<CalculateParabola> ();
+		//lineRenderer = GetComponent<LineRenderer> ();
 
 	}
 	
@@ -42,48 +49,44 @@ public class ProjectilePreview : MonoBehaviour {
 		facingRight = PC2D.facingRight ();
 
 		if (ShowingLine == true) {
-			if (rb.velocity.magnitude > 0) {
+			if (Input.GetButtonDown ("Fire1")) {
 				DeleteDots ();
 				ShowingLine = false;
-			} //else if (currentGweep != "constantGweep") {
-				//slider.onValueChanged.AddListener (delegate {
-				//	DeleteDots ();
-				//	ShowingLine = false;	
-				//});
-		//	}
-		}
-		else if (currentGweep != null && rb.velocity.magnitude == 0 && ShowingLine == false) {
-			if (currentGweep == "constantGweep") {
-				delayTime -= Time.deltaTime;
-				if (delayTime <= 0f) {
+			}
+		} else if (currentGweep != null && ShowingLine == false) {
+			delayTime -= Time.deltaTime;
+			if (delayTime <= 0f) {
+				
+				if (currentGweep == "constantGweep") {
 					if (facingRight) {
 						UpdateCGTrajectory ("Right");
-
 					} else {
 						UpdateCGTrajectory ("Left");
 					}
-					ShowingLine = true;
-					delayTime = 1f;
 				}
-			}
 
-			if (currentGweep == "linearGweep") {
-				delayTime -= Time.deltaTime;
-				if (delayTime <= 0f) {
+				if (currentGweep == "linearGweep") {
 					if (facingRight) {
 						UpdateLinTrajectory ("Right");
 					} else {
 						UpdateLinTrajectory ("Left");
 					}
-					delayTime = 1f;
-					ShowingLine = true;
 				}
+
+				if (currentGweep == "parabolaGweep") {
+					if (facingRight) {
+						UpdateQuadraticTrajectory ("Right");
+					} else {
+						UpdateQuadraticTrajectory ("Left");
+					}
+				}
+				delayTime = 0.25f;
+				ShowingLine = true;
 			}
 		}
 	}
 
-
-	void UpdateCGTrajectory (string direction) {
+	public void UpdateCGTrajectory (string direction) {
 		
 		int numSteps = numLineDots;
 		float timeDelta = 0.02f;
@@ -96,12 +99,31 @@ public class ProjectilePreview : MonoBehaviour {
 		}
 
 		for (int i = 0; i < numSteps; ++i) {
-			Instantiate (projectileDot, position, Quaternion.identity);
+			GameObject dot = (GameObject)Instantiate (projectileDot, position, Quaternion.identity);
+			dot.transform.parent = gameObject.transform;
 			position += velocity * timeDelta;
 		}
+
+		/*lineRenderer.SetVertexCount (numLineDots);
+		int numSteps = numLineDots;
+		float timeDelta = 0.02f;
+		if (direction == "Right") {
+			position = rightShot.position;
+			velocity = new Vector3 (20f, 0, 0);
+		} else {
+			position = leftShot.position;
+			velocity = new Vector3 (-20f, 0, 0);
+		}
+
+		for (int i = 0; i < numSteps; ++i) {
+			lineRenderer.SetPosition (i, position);
+			position += velocity * timeDelta;
+		}
+		*/
+
 	}
 		
-	void UpdateLinTrajectory(string direction){
+	public void UpdateLinTrajectory(string direction){
 		int numSteps = numLineDots;
 		float timeDelta = 0.02f;
 		float slope = LEI.getSlopeValue();
@@ -116,18 +138,55 @@ public class ProjectilePreview : MonoBehaviour {
 		}
 
 		for (int i = 0; i < numSteps; ++i) {
-			Instantiate (projectileDot, position, Quaternion.identity);
+			GameObject dot = (GameObject) Instantiate (projectileDot, position, Quaternion.identity);
+			dot.transform.parent = gameObject.transform;
 			position += velocity * timeDelta;
 		}
 	}
 
-	void DeleteDots(){
-		
+	public void UpdateQuadraticTrajectory(string direction){
+		int numSteps = numLineDots;
+		float linearCoef = QEI.getLinearValue ();
+		float quadraticCoef = QEI.getQuadraticValue ();
+
+		float leftRoot = CP.calculateLeftRoot (linearCoef, quadraticCoef);
+		float rightRoot = CP.calculateRightRoot (linearCoef, quadraticCoef);
+		float stepDistance = (float)((rightRoot - leftRoot) / numSteps);
+
+
+
+		if (direction == "Right") {
+			GameObject initDot = (GameObject)Instantiate (projectileDot, rightShot.position, Quaternion.identity);
+			initDot.transform.parent = gameObject.transform;
+			for (int i = 1; i < numSteps; ++i) {
+				float xDisplacement = i * stepDistance;
+				float yDisplacement = CP.quadraticFunction (leftRoot + xDisplacement);
+				GameObject dot = (GameObject)Instantiate(projectileDot, rightShot.position + new Vector3(xDisplacement, yDisplacement, 0f), Quaternion.identity);
+				dot.transform.parent = gameObject.transform;
+
+			}
+		} else {
+			GameObject initDot = (GameObject)Instantiate (projectileDot, leftShot.position, Quaternion.identity);
+			initDot.transform.parent = gameObject.transform;
+			for (int i = 1; i < numSteps; ++i) {
+				float xDisplacement = i * stepDistance;
+				float yDisplacement = CP.quadraticFunction (leftRoot + xDisplacement);
+				GameObject dot = (GameObject)Instantiate(projectileDot, rightShot.position + new Vector3(-xDisplacement, yDisplacement, 0f), Quaternion.identity);
+				dot.transform.parent = gameObject.transform;
+
+			}
+		}
+
+	}
+
+	public void DeleteDots(){
 		foreach(GameObject Dot in GameObject.FindGameObjectsWithTag("projectileDot")){
 			Destroy (Dot);
 		}
+	}
 
-
+	public void setShowingLine(bool showing){
+		ShowingLine = showing;
 	}
 
 }

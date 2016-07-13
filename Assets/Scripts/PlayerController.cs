@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	private bool hasKey;
 	public AudioSource keyPickUpSound;
+	public AudioSource GweepPickUpSound;
 	public GameObject boundary;
 	private Rigidbody2D rb;
 	//private Transform playerTransform;
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour {
 	public Sprite parabolaGweepSprite;
 
 	private string currentGweep;
-
+	private ProjectilePreview PP;
 	public Image GweepImage;
 
 
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour {
 		max_X = boundary.transform.position.x + ((float)boundary.transform.localScale.x/2);
 		//playerTransform = GetComponent<Transform> ();
 		currentGweep = null;
-
+		PP = GetComponent<ProjectilePreview> ();
 		//constantGweeps = ... 
 	}
 
@@ -86,6 +87,9 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.GetComponent<SpriteRenderer> ().enabled = false;
 			//possibly temporary
 			setCurrentGweep("constantGweep");
+			GweepPickUpSound.Play ();
+			PP.DeleteDots ();
+			PP.setShowingLine (false);
 		}
 
 		if (other.gameObject.CompareTag ("linearGweepPickUp")) {
@@ -93,6 +97,9 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.GetComponent<CircleCollider2D> ().enabled = false;
 			other.gameObject.GetComponent<SpriteRenderer> ().enabled = false;
 			setCurrentGweep ("linearGweep");
+			GweepPickUpSound.Play ();
+			PP.DeleteDots();
+			PP.setShowingLine (false);
 		}
 
 		if (other.gameObject.CompareTag ("parabolaGweepPickUp")) {
@@ -100,6 +107,9 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.GetComponent<CircleCollider2D> ().enabled = false;
 			other.gameObject.GetComponent<SpriteRenderer> ().enabled = false;
 			setCurrentGweep ("parabolaGweep");
+			GweepPickUpSound.Play ();
+			PP.DeleteDots ();
+			PP.setShowingLine (false);
 		}
 
 	}

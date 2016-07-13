@@ -23,6 +23,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 
 	public AudioSource jumpSound;
+	public AudioSource shootGweepSound;
 	private PlayerController playerController; 
 	private string currentGweep;
 	public Image GweepImage;
@@ -97,11 +98,13 @@ public class PlatformerCharacter2D : MonoBehaviour
 				PGSqrTerm = QEI.getQuadraticValue ();
 
 				if (m_FacingRight) {
-					fireParabolaGweep ("Right", PGLinTerm, -PGSqrTerm);
+					fireParabolaGweep ("Right", PGLinTerm, PGSqrTerm);
 				} else {
-					fireParabolaGweep ("Left", PGLinTerm, -PGSqrTerm);
+					fireParabolaGweep ("Left", PGLinTerm, PGSqrTerm);
 				}
 			}
+
+			shootGweepSound.Play ();
 
 		}
 	}
@@ -148,21 +151,23 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	private void fireParabolaGweep(string direction, float linearCoef, float quadraticCoef){
 		if (playerController.getParabolaGweeps () != 0) {
-			float max = CP.calculateMax (linearCoef, quadraticCoef);
+			float maximumHeight = CP.calculateMax(linearCoef, quadraticCoef);
 			float leftRoot = CP.calculateLeftRoot (linearCoef, quadraticCoef);
 			float rightRoot = CP.calculateRightRoot (linearCoef, quadraticCoef);
-			float time = (float)Math.Sqrt ((double)(8 * max));
-			float xDistance = (rightRoot - leftRoot) * 10;
-			float xForce = xDistance / time;
-			float yForce = (float)Math.Sqrt ((double)(max * 2));
+			float range = rightRoot - leftRoot;
+			//Debug.Log ("asfsafds");
+			double angle = Math.Atan ((double)(4*maximumHeight/range));
+			float speed = (float)Math.Sqrt ((2f * maximumHeight) / (Math.Sin (angle) * Math.Sin (angle)));
+
+			speed = speed * 3.19f; //don't know why but this adjustment works
 
 			if (direction.Equals ("Right")) {
-				GameObject pG = Instantiate (parabolaGweep, rightShot.position + new Vector3(2f, 0, 0), Quaternion.identity) as GameObject;
-				pG.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-xForce, yForce * 2); //change numbers around a bit
+				GameObject pG = Instantiate (parabolaGweep, rightShot.position, Quaternion.identity) as GameObject;
+				pG.GetComponent<Rigidbody2D> ().velocity = new Vector2 (speed * (float)Math.Cos(angle), speed * (float)Math.Sin(angle));
 				playerController.setParabolaGweeps (playerController.getParabolaGweeps () - 1);
 			} else {
-				GameObject pG = Instantiate (parabolaGweep, leftShot.position + new Vector3(-2f, 0, 0), Quaternion.identity) as GameObject;
-				pG.GetComponent<Rigidbody2D> ().velocity = new Vector2 (xForce, yForce * 2);
+				GameObject pG = Instantiate (parabolaGweep, leftShot.position, Quaternion.identity) as GameObject;
+				pG.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-speed * (float)Math.Cos(angle), speed * (float)Math.Sin(angle));
 				playerController.setParabolaGweeps (playerController.getParabolaGweeps () - 1);
 			}
 				

@@ -24,7 +24,7 @@ public class Level05Button : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.CompareTag ("Weight")) {
+		if (other.gameObject.CompareTag ("Weight") || other.gameObject.CompareTag("Player")) {
 			triggered = true;
 		} else if (other.gameObject.CompareTag ("parabolaGweep")) {
 			triggered = true;
