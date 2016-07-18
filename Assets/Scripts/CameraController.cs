@@ -4,9 +4,9 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-	public GameObject player;
+	private GameObject player;
 	private Vector3 offset;
-	public GameObject boundary;
+	private GameObject boundary;
 	private float min_X, max_X, min_Y, max_Y;
 
 	// Use this for initialization
@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour {
 		max_X = boundary.transform.position.x + ((float)boundary.transform.localScale.x/2);
 		min_Y = boundary.transform.position.y - ((float)boundary.transform.localScale.y/2);
 		max_Y = boundary.transform.position.y + ((float)boundary.transform.localScale.y/2);
+		boundary = GameObject.FindGameObjectWithTag ("Boundary");
+		player = transform.parent.gameObject;
 	}
 
 	// LateUpdate is called after per frame

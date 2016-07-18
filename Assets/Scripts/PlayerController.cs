@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
-
+	
 	private bool hasKey;
-	public AudioSource keyPickUpSound;
-	public AudioSource GweepPickUpSound;
-	public GameObject boundary;
+	private AudioSource keyPickUpSound;
+	private AudioSource GweepPickUpSound;
+	private GameObject boundary;
 	private Rigidbody2D rb;
 	//private Transform playerTransform;
 	//public AudioSource levelWinSound;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 
 	private string currentGweep;
 	private ProjectilePreview PP;
-	public Image GweepImage;
+	private Image GweepImage;
 
 
 	void Start () {
@@ -39,9 +39,14 @@ public class PlayerController : MonoBehaviour {
 		//playerTransform = GetComponent<Transform> ();
 		currentGweep = null;
 		PP = GetComponent<ProjectilePreview> ();
-		//constantGweeps = ... 
+		if (GameObject.FindGameObjectWithTag ("Audio") != null) {
+			keyPickUpSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("keyPickUp").gameObject.GetComponent<AudioSource>();
+			GweepPickUpSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("CollectGweep").gameObject.GetComponent<AudioSource>();
+		}
+		boundary = GameObject.FindGameObjectWithTag ("Boundary");
+		GweepImage = GameObject.FindGameObjectWithTag ("HUDCanvas").transform.Find ("GweepImage").gameObject.GetComponent<Image> ();
 	}
-
+		
 	void Update(){
 		//Restarting game
 		if (Input.GetKeyDown ("r")) {

@@ -32,8 +32,8 @@ public class ProjectilePreview : MonoBehaviour {
 	void Start () {
 		playerController = GetComponent<PlayerController>();
 		PC2D = GetComponent<PlatformerCharacter2D> ();
-		leftShot = PC2D.leftShot;
-		rightShot = PC2D.rightShot;
+		leftShot = transform.Find ("leftShot");
+		rightShot = transform.Find ("rightShot");
 		//rb = GetComponent<Rigidbody2D> ();
 		delayTime = 0.25f;
 		ShowingLine = false;

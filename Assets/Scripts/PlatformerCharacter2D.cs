@@ -22,16 +22,16 @@ public class PlatformerCharacter2D : MonoBehaviour
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
 
-	public AudioSource jumpSound;
-	public AudioSource shootGweepSound;
+	private AudioSource jumpSound;
+	private AudioSource shootGweepSound;
 	private PlayerController playerController; 
 	private string currentGweep;
-	public Image GweepImage;
+	private Image GweepImage;
 
 	//leftShot and rightShot are possibly temporary, depending on whether 
 	//the player can adjust where they want to start firing the Gweep
-	public Transform leftShot;
-	public Transform rightShot;
+	private Transform leftShot;
+	private Transform rightShot;
 	//if there is a better way to do this, this is also temporary
 	public GameObject constantGweep;
 	public GameObject linearGweep;
@@ -51,6 +51,8 @@ public class PlatformerCharacter2D : MonoBehaviour
         // Setting up references.
         m_GroundCheck = transform.Find("GroundCheck");
         m_CeilingCheck = transform.Find("CeilingCheck");
+		leftShot = transform.Find ("leftShot");
+		rightShot = transform.Find ("rightShot");
         m_Anim = GetComponent<Animator>();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -58,6 +60,11 @@ public class PlatformerCharacter2D : MonoBehaviour
 		if (GameObject.FindGameObjectWithTag("HUDCanvas") != null){
 			HUDCanvas = GameObject.FindGameObjectWithTag("HUDCanvas");
 		}
+		if (GameObject.FindGameObjectWithTag ("Audio") != null) {
+			jumpSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("jumpSound").gameObject.GetComponent<AudioSource>();
+			shootGweepSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("shootGweep").gameObject.GetComponent<AudioSource>();
+		}
+		GweepImage = GameObject.FindGameObjectWithTag ("HUDCanvas").transform.Find ("GweepImage").gameObject.GetComponent<Image> ();
 		CP = GetComponent<CalculateParabola> ();
     }
 
