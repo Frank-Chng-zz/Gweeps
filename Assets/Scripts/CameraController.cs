@@ -11,13 +11,15 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		player = transform.parent.gameObject;
+		boundary = GameObject.FindGameObjectWithTag ("Boundary");
 		offset = transform.position - player.transform.position;
 		min_X = boundary.transform.position.x - ((float)boundary.transform.localScale.x/2);
 		max_X = boundary.transform.position.x + ((float)boundary.transform.localScale.x/2);
 		min_Y = boundary.transform.position.y - ((float)boundary.transform.localScale.y/2);
 		max_Y = boundary.transform.position.y + ((float)boundary.transform.localScale.y/2);
-		boundary = GameObject.FindGameObjectWithTag ("Boundary");
-		player = transform.parent.gameObject;
+
+
 	}
 
 	// LateUpdate is called after per frame

@@ -11,17 +11,16 @@ public class ButtonTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.CompareTag ("Player") || other.gameObject.CompareTag ("Weight")) {
-			Instantiate (buttonDown, buttonTransform.position, Quaternion.identity);
-			gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
-			gameObject.GetComponent<SpriteRenderer> ().enabled = false;
-		
-		} else if (other.gameObject.CompareTag ("parabolaGweep")) {
-			Instantiate (buttonDown, buttonTransform.position, Quaternion.identity);
-			gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
-			gameObject.GetComponent<SpriteRenderer> ().enabled = false;
+		if (other.gameObject.CompareTag ("Player") || other.gameObject.CompareTag ("Weight") || other.gameObject.CompareTag ("parabolaGweep")) {
+			TriggerButton ();
 		}
 	
+	}
+
+	void TriggerButton(){
+		Instantiate (buttonDown, buttonTransform.position, Quaternion.identity);
+		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
+		gameObject.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
 }

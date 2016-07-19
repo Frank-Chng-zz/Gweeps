@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Start () {
+		boundary = GameObject.FindGameObjectWithTag ("Boundary");
 		hasKey = false;
 		rb = GetComponent<Rigidbody2D> ();
 		min_X = boundary.transform.position.x - ((float)boundary.transform.localScale.x/2);
@@ -40,10 +41,10 @@ public class PlayerController : MonoBehaviour {
 		currentGweep = null;
 		PP = GetComponent<ProjectilePreview> ();
 		if (GameObject.FindGameObjectWithTag ("Audio") != null) {
-			keyPickUpSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("keyPickUp").gameObject.GetComponent<AudioSource>();
+			keyPickUpSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("KeyPickUp").gameObject.GetComponent<AudioSource>();
 			GweepPickUpSound = GameObject.FindGameObjectWithTag ("Audio").transform.Find ("CollectGweep").gameObject.GetComponent<AudioSource>();
 		}
-		boundary = GameObject.FindGameObjectWithTag ("Boundary");
+
 		GweepImage = GameObject.FindGameObjectWithTag ("HUDCanvas").transform.Find ("GweepImage").gameObject.GetComponent<Image> ();
 	}
 		

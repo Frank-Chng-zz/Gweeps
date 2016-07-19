@@ -62,6 +62,8 @@
      <Compile Include="Assets\Scripts\GweepRespawn.cs" />
      <Compile Include="Assets\Scripts\Level05Button.cs" />
      <Compile Include="Assets\Scripts\LinearEquationInteractable.cs" />
+     <Compile Include="Assets\Scripts\PersistAfterSceneChange.cs" />
+     <Compile Include="Assets\Scripts\PersistMusic.cs" />
      <Compile Include="Assets\Scripts\PlatformerCharacter2D.cs" />
      <Compile Include="Assets\Scripts\Player2DMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
