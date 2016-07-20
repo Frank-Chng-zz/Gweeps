@@ -5,6 +5,7 @@ public class ButtonTrigger : MonoBehaviour {
 
 	public GameObject buttonDown;
 	private Transform buttonTransform;
+	public GameObject arrow;
 
 	void Start(){
 		buttonTransform = gameObject.GetComponent<Transform> ();
@@ -13,6 +14,7 @@ public class ButtonTrigger : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.CompareTag ("Player") || other.gameObject.CompareTag ("Weight") || other.gameObject.CompareTag ("parabolaGweep")) {
 			TriggerButton ();
+			ShowArrow ();
 		}
 	
 	}
@@ -21,6 +23,12 @@ public class ButtonTrigger : MonoBehaviour {
 		Instantiate (buttonDown, buttonTransform.position, Quaternion.identity);
 		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 		gameObject.GetComponent<SpriteRenderer> ().enabled = false;
+	}
+
+	void ShowArrow(){
+		if (arrow != null) {
+			arrow.SetActive (true);
+		}
 	}
 
 }

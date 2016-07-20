@@ -21,5 +21,9 @@ public class parabolaGweepActivity : MonoBehaviour {
 		}
 	}
 
-
+	void OnCollisionEnter2D(Collision2D other){
+		if ((other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag ("Obstacle") || other.gameObject.CompareTag ("Unbreakable") || other.gameObject.CompareTag ("Weight"))) {
+			Destroy (gameObject);
+		}
+	}
 }
