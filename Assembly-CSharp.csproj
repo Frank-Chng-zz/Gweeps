@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\DragButtonLGSlider.cs" />
      <Compile Include="Assets\Scripts\DragButtonPGLinearSlider.cs" />
      <Compile Include="Assets\Scripts\DragButtonPGQuadraticSlider.cs" />
+     <Compile Include="Assets\Scripts\DrawGridLines.cs" />
      <Compile Include="Assets\Scripts\GweepRespawn.cs" />
      <Compile Include="Assets\Scripts\Level05Button.cs" />
      <Compile Include="Assets\Scripts\LinearEquationInteractable.cs" />
