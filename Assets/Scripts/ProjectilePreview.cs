@@ -120,8 +120,8 @@ public class ProjectilePreview : MonoBehaviour {
 		for (int i = 0; i < numSteps; ++i) {
 
 			bool touching = false;
-			if (Physics.OverlapSphere (position, 0.25f) != null) {
-				foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.25f)){
+			if (Physics.OverlapSphere (position, 0.48f) != null) {
+				foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.48f)){
 					if ((coll.gameObject.CompareTag ("Obstacle") || coll.gameObject.CompareTag("Unbreakable") || coll.gameObject.CompareTag("Weight"))) {
 						touching = true;
 						break;
@@ -155,8 +155,8 @@ public class ProjectilePreview : MonoBehaviour {
 
 		for (int i = 0; i < numSteps; ++i) {
 			bool touching = false;
-			if (Physics.OverlapSphere (position, 0.25f) != null) {
-				foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.25f)){
+			if (Physics.OverlapSphere (position, 0.48f) != null) {
+				foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.48f)){
 					if ((coll.gameObject.CompareTag ("Obstacle") || coll.gameObject.CompareTag("Unbreakable") || coll.gameObject.CompareTag("Weight"))) {
 						touching = true;
 						break;
@@ -192,8 +192,8 @@ public class ProjectilePreview : MonoBehaviour {
 				position = rightShot.position + new Vector3 (xDisplacement, yDisplacement, 0f);
 
 				bool touching = false;
-				if (Physics.OverlapSphere (position, 0.25f) != null) {
-					foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.25f)){
+				if (Physics.OverlapSphere (position, 0.52f) != null) {
+					foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.52f)){
 						if ((coll.gameObject.CompareTag ("Obstacle") || coll.gameObject.CompareTag("Unbreakable") || coll.gameObject.CompareTag("Weight"))) {
 							touching = true;
 							break;
@@ -216,8 +216,8 @@ public class ProjectilePreview : MonoBehaviour {
 				position = leftShot.position + new Vector3 (-xDisplacement, yDisplacement, 0f);
 
 				bool touching = false;
-				if (Physics.OverlapSphere (position, 0.25f) != null) {
-					foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.25f)){
+				if (Physics.OverlapSphere (position, 0.52f) != null) {
+					foreach (Collider2D coll in Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), 0.52f)){
 						if ((coll.gameObject.CompareTag ("Obstacle") || coll.gameObject.CompareTag("Unbreakable"))) {
 							touching = true;
 							break;
