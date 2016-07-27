@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ProjectilePreview : MonoBehaviour {
 
@@ -25,6 +26,8 @@ public class ProjectilePreview : MonoBehaviour {
 
 	public int numLineDots;
 
+	private bool LineOn;
+
 	private bool ShowingLine;
 
 
@@ -37,12 +40,19 @@ public class ProjectilePreview : MonoBehaviour {
 		ShowingLine = false;
 		numLineDots = 25;
 		CP = GetComponent<CalculateParabola> ();
+		if (SceneManager.GetActiveScene ().buildIndex >= 9) {
+			LineOn = false;
+		} else {
+			LineOn = true;
+		}
 	}
 
 	void Update () {
 		currentGweep = playerController.getCurrentGweep ();
 		facingRight = PC2D.facingRight ();
-
+		if(LineOn == false){
+			return;
+		}
 		if (ShowingLine == true) {
 			if (Input.GetButtonDown ("Fire1")) {
 				DeleteDots ();
@@ -106,7 +116,9 @@ public class ProjectilePreview : MonoBehaviour {
 	}
 
 	public void UpdateCGTrajectory (string direction) {
-		
+		if(LineOn == false){
+			return;
+		}
 		int numSteps = numLineDots;
 		float timeDelta = 0.02f;
 		if (direction == "Right") {
@@ -140,6 +152,9 @@ public class ProjectilePreview : MonoBehaviour {
 	}
 		
 	public void UpdateLinTrajectory(string direction){
+		if(LineOn == false){
+			return;
+		}
 		int numSteps = numLineDots;
 		float timeDelta = 0.02f;
 		float slope = LEI.getSlopeValue();
@@ -174,13 +189,15 @@ public class ProjectilePreview : MonoBehaviour {
 	}
 
 	public void UpdateQuadraticTrajectory(string direction){
+		if(LineOn == false){
+			return;
+		}
 		int numSteps = numLineDots;
 		float linearCoef = QEI.getLinearValue ();
 		float quadraticCoef = QEI.getQuadraticValue ();
 		float leftRoot = CP.calculateLeftRoot (linearCoef, quadraticCoef);
 		float rightRoot = CP.calculateRightRoot (linearCoef, quadraticCoef);
 		float stepDistance = (float)((rightRoot - leftRoot) / numSteps);
-
 
 
 		if (direction == "Right") {

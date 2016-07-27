@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate () {
 		rb.position = new Vector2 (
-			Mathf.Clamp (rb.position.x, min_X + 0.2f, max_X - 0.2f),
+			Mathf.Clamp (rb.position.x, min_X + 0.3f, max_X - 0.3f),
 			rb.position.y
 		);
 	}

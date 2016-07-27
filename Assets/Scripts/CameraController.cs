@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour {
 	void LateUpdate () {
 		
 		transform.position = new Vector3(
-			Mathf.Clamp(player.transform.position.x + offset.x, min_X + 14.4f, max_X - 14.4f),
+			Mathf.Clamp(player.transform.position.x + offset.x, min_X + 13.8f, max_X - 13.8f),
 			Mathf.Clamp(player.transform.position.y + offset.y, min_Y + 7.14f, max_Y - 7.14f),
 			-10
 		);
