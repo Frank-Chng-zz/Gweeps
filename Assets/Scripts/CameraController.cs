@@ -18,17 +18,20 @@ public class CameraController : MonoBehaviour {
 		max_X = boundary.transform.position.x + ((float)boundary.transform.localScale.x/2);
 		min_Y = boundary.transform.position.y - ((float)boundary.transform.localScale.y/2);
 		max_Y = boundary.transform.position.y + ((float)boundary.transform.localScale.y/2);
-
+		float boundaryWidth = boundary.transform.localScale.x;
+		if (boundaryWidth < 30) {
+			GetComponent<CameraController> ().enabled = false;
+		}
 
 	}
 
-	// LateUpdate is called after per frame
+
 	void LateUpdate () {
-		
 		transform.position = new Vector3(
 			Mathf.Clamp(player.transform.position.x + offset.x, min_X + 13.8f, max_X - 13.8f),
 			Mathf.Clamp(player.transform.position.y + offset.y, min_Y + 7.14f, max_Y - 7.14f),
 			-10
 		);
+
 	}
 }
