@@ -21,12 +21,12 @@ public class PlatformerCharacter2D : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
-
 	private AudioSource jumpSound;
 	private AudioSource shootGweepSound;
 	private PlayerController playerController; 
 	private string currentGweep;
 	private Image GweepImage;
+	private bool firing = false;
 
 	//leftShot and rightShot are possibly temporary, depending on whether 
 	//the player can adjust where they want to start firing the Gweep
@@ -44,6 +44,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	private float PGSqrTerm;
 	private CalculateParabola CP;
 	private GameObject HUDCanvas;
+
 
 
     private void Awake()
@@ -68,6 +69,10 @@ public class PlatformerCharacter2D : MonoBehaviour
 		CP = GetComponent<CalculateParabola> ();
     }
 
+	public void Fire(){
+		firing = true;
+	}
+
 	//Update is used for shooting Gweeps
 	private void Update(){
 		currentGweep = playerController.getCurrentGweep ();
@@ -76,7 +81,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 			GweepImage.sprite = null;
 		}
 
-		if (Input.GetButtonDown ("Fire1") && currentGweep != null) {
+
+		if (firing && currentGweep != null) {
 
 			//Firing constantGweeps
 			if (currentGweep.Equals ("constantGweep")) {
@@ -112,7 +118,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 			}
 
 			shootGweepSound.Play ();
-
+			firing = false;
 		}
 	}
 

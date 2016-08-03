@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿	using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
 	private int linearGweeps = 0;
 	private int parabolaGweeps = 0;
 	public Sprite parabolaGweepSprite;
+
 
 	private string currentGweep;
 	private ProjectilePreview PP;
@@ -139,6 +140,7 @@ public class PlayerController : MonoBehaviour {
 		} else if (currentGweep == "parabolaGweep") {
 			GweepImage.sprite = parabolaGweepSprite;
 		}
+
 	}
 
 	public string getCurrentGweep(){
