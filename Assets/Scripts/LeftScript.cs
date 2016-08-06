@@ -8,7 +8,7 @@ using UnityStandardAssets._2D;
 
 public class LeftScript : MonoBehaviour {
 	private bool left = false;
-	private bool onLeft = false;
+	//private bool onLeft = false;
 	private GraphicRaycaster GR;
 	private RightScript RS;
 	//private Player2DMovement playerMovement;
