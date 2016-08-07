@@ -26,7 +26,7 @@ public class LeftScript : MonoBehaviour {
 				
 			//}
 
-			if (Input.GetTouch (0).phase == TouchPhase.Stationary) {
+			if (Input.GetTouch (0).phase == TouchPhase.Began) {
 				//if (onLeft) {
 				PointerEventData ped = new PointerEventData (null);
 				ped.position = Input.GetTouch (0).position;
@@ -53,7 +53,6 @@ public class LeftScript : MonoBehaviour {
 			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
 				//if (onLeft) {
 					left = false;
-					print ("Left off!");
 				//}
 
 			}

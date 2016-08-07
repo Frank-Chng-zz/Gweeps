@@ -17,11 +17,15 @@ public class GridLineToggle : MonoBehaviour, IPointerClickHandler {
 			GridLines = false;
 			gameObject.GetComponentInChildren<Text>().text = "Grid Lines: Off";
 			DGL.DeleteLines();
+			gameObject.GetComponent<Image> ().color = new Color (1, 0, 0, 1);
 		} else {
 			GridLines = true;
 			gameObject.GetComponentInChildren<Text>().text = "Grid Lines: On";
 			DGL.DrawLines();
+			gameObject.GetComponent<Image> ().color = new Color (0, 1, 0, 1);
 		}
+
+
 			
 	}	
 }

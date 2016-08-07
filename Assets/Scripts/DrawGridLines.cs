@@ -29,24 +29,24 @@ public class DrawGridLines : MonoBehaviour {
 
 	public void DrawLines(){
 		//Drawing horizontal lines
-		for(int i = 0; i < verticalSize + 1; i++){
+		for(int i = 0; i < (int)(verticalSize + 1)/2 + 1; i++){
 			GameObject drawer = Instantiate(lineDrawer) as GameObject;
 			drawer.transform.parent = gameObject.transform;
 			LineRenderer renderer = drawer.GetComponent<LineRenderer> ();
 			renderer.SetVertexCount (2);
-			renderer.SetWidth (0.03f, 0.03f);
-			renderer.SetPosition (0, new Vector3 (min_X, min_Y + i, 2));
-			renderer.SetPosition (1, new Vector3 (max_X, min_Y + i, 2));
+			renderer.SetWidth (0.06f, 0.06f);
+			renderer.SetPosition (0, new Vector3 (min_X, min_Y + (i * 2), 2));
+			renderer.SetPosition (1, new Vector3 (max_X, min_Y + (i * 2), 2));
 		}
 
-		for (int i = 0; i < horizontalSize + 1; i++) {
+		for (int i = 0; i < (int)(horizontalSize + 1/2) + 1; i++) {
 			GameObject drawer = Instantiate(lineDrawer) as GameObject;
 			drawer.transform.parent = gameObject.transform;
 			LineRenderer renderer = drawer.GetComponent<LineRenderer> ();
 			renderer.SetVertexCount (2);
-			renderer.SetWidth (0.03f, 0.03f);
-			renderer.SetPosition (0, new Vector3 (min_X + i, min_Y, 2));
-			renderer.SetPosition (1, new Vector3 (min_X + i, max_Y, 2));
+			renderer.SetWidth (0.06f, 0.06f);
+			renderer.SetPosition (0, new Vector3 (min_X + (i * 2), min_Y, 2));
+			renderer.SetPosition (1, new Vector3 (min_X + (i * 2), max_Y, 2));
 		}
 	}
 

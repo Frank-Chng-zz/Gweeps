@@ -29,7 +29,7 @@ public class RightScript : MonoBehaviour {
 				
 			//}
 
-			if (Input.GetTouch (0).phase == TouchPhase.Stationary) {
+			if (Input.GetTouch (0).phase == TouchPhase.Began) {
 				//if (onRight) {
 				PointerEventData ped = new PointerEventData (null);
 				ped.position = Input.GetTouch (0).position;
@@ -55,7 +55,6 @@ public class RightScript : MonoBehaviour {
 			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
 				//if (onRight) {
 					right = false;
-					print ("Right off!");
 				//}
 
 			}
